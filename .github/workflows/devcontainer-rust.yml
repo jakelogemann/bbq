@@ -1,5 +1,5 @@
 name: "devcontainer-rust"
-concurrency: { group: "${{ github.workflow }}-${{ github.ref_type }}-${{ github.ref_name }}", cancel-in-progress: true }
+concurrency: { group: "${{ github.workflow }}-${{ github.ref_type }}-${{ github.ref_name }}" }
 permissions: 
   contents: read
   pull-requests: read
@@ -8,9 +8,8 @@ permissions:
 on:
   workflow_dispatch:
   schedule: [{ cron: "0 0 * * *" }]
-  push:
-    branches: [main]
-    paths: ["devcontainer-rust/*"]
+  pull_request: { branches: [main], paths: ["devcontainer-rust/*"] }
+  push: { branches: [main], paths: ["devcontainer-rust/*"] }
 
 jobs:
   build:

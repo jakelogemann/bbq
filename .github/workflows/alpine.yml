@@ -8,9 +8,8 @@ permissions:
 on:
   workflow_dispatch:
   schedule: [{ cron: "0 0 * * *" }]
-  push:
-    branches: [main]
-    paths: ["devcontainer-rust/*"]
+  pull_request: { branches: [main], paths: ["alpine/*"] }
+  push: { branches: [main], paths: ["alpine/*"] }
 
 jobs:
   build:
