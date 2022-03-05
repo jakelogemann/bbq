@@ -1,0 +1,9 @@
+---
+actions: [".github/actions"]
+devcontainer: ["*devcontainer.json"]
+docker: ["Dockerfile"]
+docs: ["*.md", "LICENSE"]
+github: [".github"]
+script: ["*.sh", "*.py"]
+vscode: [".vscode"]
+workflows: [".github/workflows"]
