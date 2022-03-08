@@ -1,0 +1,12 @@
+{
+	"name": "zola",
+	"image": "ghcr.io/jakelogemann/devcontainer-zola:latest",
+	"extensions": [
+		"bungcip.better-toml",
+		"github.codespaces",
+		"github.github-vscode-theme",
+		"github.vscode-pull-request-github"
+	],
+	"remoteUser": "vscode",
+	"shutdownAction": "stopContainer"
+}
