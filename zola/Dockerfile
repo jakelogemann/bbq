@@ -1,2 +1,2 @@
-FROM ghcr.io/jakelogemann/alpine:latest
+FROM ghcr.io/fnctl/alpine:latest
 RUN apk add --no-cache zola

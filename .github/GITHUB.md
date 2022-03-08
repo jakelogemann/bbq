@@ -10,11 +10,6 @@
 - See the official [Dependabot Documentation][] for more information.
 - See [dependabot.yml] for configuration.
 
-## Issue Templates
-
-- See the official [Issue Templates Documentation][] for more information.
-- See the [ISSUE_TEMPLATE] directory for configuration.
-
 ## Project Workflows
 
 - See the official [Workflow Syntax Documentation][] for more information.
