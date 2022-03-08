@@ -1,0 +1,19 @@
+name: "zola"
+concurrency: { group: "${{ github.workflow }}-${{ github.ref_type }}-${{ github.ref_name }}", cancel-in-progress: true }
+permissions: 
+  contents: read
+  pull-requests: read
+  packages: write
+
+on:
+  workflow_dispatch:
+  schedule: [{ cron: "0 0 * * *" }]
+  pull_request: { branches: [main], paths: ["zola/*"] }
+  push: { branches: [main], paths: ["zola/*"] }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - { name: checkout project., uses: actions/checkout@v2 }
+      - { name: build., uses: ./.github/actions/docker-build }
