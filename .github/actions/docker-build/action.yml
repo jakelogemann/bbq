@@ -40,8 +40,8 @@ runs:
     - shell: bash
       run: |-
         #build container image.
-        docker login ${{inputs.registry}} --username=${{inputs.actor}} -p "${{inputs.secret}}" 2>/dev/null \
-        && docker build \
+        podman login ${{inputs.registry}} --username=${{inputs.actor}} -p "${{inputs.secret}}" 2>/dev/null \
+        && podman build \
           --file="${{inputs.name}}/Dockerfile" \
           --tag="${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" \
           --cache-from="${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" \
@@ -60,9 +60,9 @@ runs:
       shell: bash
       run: |-
         #publish container image?
-        docker push "${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}"
+        podman push "${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}"
 
     - name: logout from registry.
       shell: bash
       if: ${{ always() }}
-      run: docker logout ${{inputs.registry}}
+      run: podman logout ${{inputs.registry}}
