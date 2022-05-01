@@ -44,7 +44,7 @@ runs:
         && podman build \
           --file="${{inputs.name}}/Dockerfile" \
           --tag="${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" \
-          --cache-from="${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" \
+          --squash-all \
           --label="github.actor=${{ github.actor }}" \
           --label="github.event.name=${{ github.event_name }}" \
           --label="github.job=${{github.job}}" \
