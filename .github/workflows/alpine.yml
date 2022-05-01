@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   schedule: [{ cron: "0 0 * * *" }]
   pull_request: { branches: [main], paths: ["alpine/*"] }
-  push: { branches: [main], paths: ["alpine/*"] }
+  push: { branches: [main], paths: ["alpine/*", ".github/actions/**.yml"] }
 
 jobs:
   build:

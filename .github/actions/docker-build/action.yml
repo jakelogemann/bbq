@@ -56,6 +56,21 @@ runs:
           --label="github.workflow=${{github.workflow}}" \
           "./${{inputs.name}}"
 
+    - shell: bash
+      run: |-
+        #inspect image contents
+        podman image inspect "${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" | jq -CSer '.'
+
+    - shell: bash
+      run: |-
+        #inspect image layers
+        podman image tree "${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" || true
+
+    - shell: bash
+      run: |-
+        #inspect image history
+        podman image history "${{inputs.registry}}/${{inputs.registry_path}}/${{inputs.name}}:${{inputs.tag}}" || true
+
     - if: ${{ inputs.publish == 'true' }}
       shell: bash
       run: |-
