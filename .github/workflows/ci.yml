@@ -28,5 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     container: "ghcr.io/${{ github.repository_owner }}/${{ github.workflow }}:latest"
     steps:
+      - run: "neofetch"
       - run: "apk update"
       - run: "apk list -I | sort"
