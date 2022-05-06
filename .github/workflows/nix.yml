@@ -17,3 +17,11 @@ jobs:
     steps:
       - { name: checkout project., uses: actions/checkout@v3 }
       - { name: build., uses: ./.github/actions/docker-build }
+
+  test:
+    needs: [build]
+    runs-on: ubuntu-latest
+    container: "ghcr.io/${{ github.repository_owner }}/${{ github.workflow }}:latest"
+    steps:
+      - run: "nix --version && nix show-config"
+
