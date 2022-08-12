@@ -1,4 +1,4 @@
-target "base" {
+target "default" {
   context = "."
   dockerfile = "Dockerfile"
   # args = {
