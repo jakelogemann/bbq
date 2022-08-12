@@ -1,6 +1,7 @@
 target "default" {
   context = "."
   dockerfile = "Dockerfile"
+  tags = ["ghcr.io/jakelogemann/images:default"]
   # args = {
   #   name = "foo"
   # }
