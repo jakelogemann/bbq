@@ -1,0 +1,11 @@
+= bbq
+
+- **depends on**: cue, docker (with buildx support) and _patience_.
+
+- **rebuild config**: `cue cmd generate`
+
+- **validate it w/ docker**: `docker buildx bake --print`
+
+- **build the `default` target**: `docker buildx bake`
+
+- **build `specific` target**: `docker buildx bake specific`
