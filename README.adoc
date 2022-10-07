@@ -4,6 +4,8 @@
 :cuetorials: link:https://cuetorials.com[cuetorials]
 :go: link:https://golang.org[go]
 
+_generates & validates a `docker-bake.json` file in {cue}.
+
 == dependencies
 
 * {cue}
