@@ -1,0 +1,23 @@
+{
+	"name": "${localWorkspaceFolderBasename}",
+	"image": "mcr.microsoft.com/vscode/devcontainers/go:1-bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {
+			"version": "latest"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"go.toolsManagement.checkForUpdates": "local",
+				"go.gopath": "/go",
+				"lldb.executable": "/usr/bin/lldb"
+			},
+			"extensions": [
+				"GitHub.vscode-pull-request-github",
+				"brody715.vscode-cuelang"
+			]
+		}
+	},
+	"postStartCommand": "go install cuelang.org/go/cmd/cue@latest"
+}

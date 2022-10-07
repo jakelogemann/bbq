@@ -1,0 +1,10 @@
+{
+  "go.toolsManagement.checkForUpdates": "local",
+  "go.useLanguageServer": true,
+  "cue.lintFlags": [
+    "-c"
+  ],
+  "files.watcherExclude": {
+    "**/target/**": true
+  }
+}
