@@ -7,7 +7,7 @@ import (
 	"tool/file"
 )
 
-// A command named "generate"
+//  command(s) that can be run using `cue cmd <name>`.
 command: {
 	prebake: file.Create & {
 		filename: "docker-bake.json"
