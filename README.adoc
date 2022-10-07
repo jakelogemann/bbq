@@ -31,4 +31,5 @@ Builds the default target of the generated docker-bake.json file. Essentially: `
 
 == see also
 
+* link:https://pkg.go.dev/cuelang.org/go/pkg@v0.4.3[CUE's standard library]
 * {cuetorials}
