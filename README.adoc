@@ -1,10 +1,6 @@
-== local dependencies
-
-* {cue}
-* {docker} (with buildkit support)
-* {go} (_optional_)
-* _patience_.
-= bbq
+:title: bbq
+:author: Jake Logemann <820715+jakelogemann@users.noreply.github.com>
+:showtitle: true
 :cue: link:https://cuelang.org[cue]
 :docker: link:https://docker.com[docker]
 :cuetorials: link:https://cuetorials.com[cuetorials]
@@ -32,11 +28,6 @@ these are located in the `*_tool.cue` file(s) in this directory.
 2. builds the default "target" of the generated `docker-bake.json` file by running (essentially) `docker buildx bake`.
 
 == see also
-== see also
-
-* link:https://pkg.go.dev/cuelang.org/go/pkg@v0.4.3[CUE's standard library]
-* {buildx-bake}
-* {cuetorials}
 
 * link:https://pkg.go.dev/cuelang.org/go/pkg@v0.4.3[CUE's standard library]
 * {buildx-bake}
