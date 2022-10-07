@@ -13,6 +13,8 @@
 
 == commands
 
+these are located in the `*_tool.cue` file(s) in this directory.
+
 === `cue cmd generate`
 
 Rebuilds everything in the current directory!
