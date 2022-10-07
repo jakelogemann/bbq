@@ -19,15 +19,17 @@ these are located in the `*_tool.cue` file(s) in this directory.
 
 === `cue cmd generate`
 
-Rebuilds everything in the current directory!
+- generates a `docker-bake.json` file in the current directory.
 
 === `cue cmd validate`
 
-Validates the generated files. Essentially: `docker buildx bake --print`
+1. runs `cue cmd generate` to generate a `docker-bake.json` file in the current directory.
+2. validates the generated file by running (essentially) `docker buildx bake --print`.
 
 === `cue cmd build`
 
-Builds the default target of the generated docker-bake.json file. Essentially: `docker buildx bake`
+1. runs `cue cmd validate` (_which then runs `cue cmd generate`_).
+2. builds the default "target" of the generated `docker-bake.json` file by running (essentially) `docker buildx bake`.
 
 == see also
 
