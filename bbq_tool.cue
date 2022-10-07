@@ -2,20 +2,30 @@ package bbq
 
 import (
 	"tool/cli"
+	"tool/exec"
 	"encoding/json"
 	"tool/file"
 )
 
 // A command named "generate"
-command: generate: {
-	docker_baker: file.Create & {
+command: {
+	prebake: file.Create & {
 		filename: "docker-bake.json"
 		contents: json.Marshal(files["docker-bake.json"])
 	}
 
-	// also starts after echo, and concurrently with append
-	print: cli.Print & {
-		$dep: docker_baker.$done
+	generate: cli.Print & {
+		$dep: prebake.$done
 		text: "Done"
+	}
+
+	validate: exec.Run & {
+		$dep: prebake.$done
+		cmd:  "docker buildx bake --file=docker-bake.json --print"
+	}
+
+	build: exec.Run & {
+		$dep: prebake.$done
+		cmd:  "docker buildx bake --file=docker-bake.json"
 	}
 }

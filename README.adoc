@@ -1,11 +1,30 @@
 = bbq
+:cue: link:https://cuelang.org[cue]
+:docker: link:https://docker.com[docker]
+:cuetorials: link:https://cuetorials.com[cuetorials]
+:go: link:https://golang.org[go]
 
-- **depends on**: cue, docker (with buildx support) and _patience_.
+== dependencies
 
-- **rebuild config**: `cue cmd generate`
+* {cue}
+* {docker} (with buildkit support)
+* {go} (_optional_)
+* _patience_.
 
-- **validate it w/ docker**: `docker buildx bake --print`
+== commands
 
-- **build the `default` target**: `docker buildx bake`
+=== `cue cmd generate`
 
-- **build `specific` target**: `docker buildx bake specific`
+Rebuilds everything in the current directory!
+
+=== `cue cmd validate`
+
+Validates the generated files. Essentially: `docker buildx bake --print`
+
+=== `cue cmd build`
+
+Builds the default target of the generated docker-bake.json file. Essentially: `docker buildx bake`
+
+== see also
+
+* {cuetorials}
