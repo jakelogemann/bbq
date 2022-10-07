@@ -1,17 +1,17 @@
-= bbq
-:cue: link:https://cuelang.org[cue]
-:docker: link:https://docker.com[docker]
-:cuetorials: link:https://cuetorials.com[cuetorials]
-:go: link:https://golang.org[go]
-
-_generates & validates a `docker-bake.json` file in {cue}_.
-
-== dependencies
+== local dependencies
 
 * {cue}
 * {docker} (with buildkit support)
 * {go} (_optional_)
 * _patience_.
+= bbq
+:cue: link:https://cuelang.org[cue]
+:docker: link:https://docker.com[docker]
+:cuetorials: link:https://cuetorials.com[cuetorials]
+:buildx-bake: link:https://docs.docker.com/engine/reference/commandline/buildx_bake/[buildx bake]
+:go: link:https://golang.org[go]
+
+_generates & validates a `docker-bake.json` file in {cue}_.
 
 == commands
 
@@ -32,6 +32,19 @@ these are located in the `*_tool.cue` file(s) in this directory.
 2. builds the default "target" of the generated `docker-bake.json` file by running (essentially) `docker buildx bake`.
 
 == see also
+== see also
 
 * link:https://pkg.go.dev/cuelang.org/go/pkg@v0.4.3[CUE's standard library]
+* {buildx-bake}
 * {cuetorials}
+
+* link:https://pkg.go.dev/cuelang.org/go/pkg@v0.4.3[CUE's standard library]
+* {buildx-bake}
+* {cuetorials}
+
+== local dependencies
+
+* {cue}
+* {docker} (with buildkit support)
+* {go} (_optional_)
+* _patience_.
