@@ -13,12 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: setup cue
-        uses: cue-lang/setup-cue@main
-        with:
-          version: 0.4.3
+      - uses: actions/checkout@v2
+      - uses: cue-lang/setup-cue@main
       - run: cue version
       - run: cue cmd generate
       - run: cue cmd build

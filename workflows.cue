@@ -26,13 +26,10 @@ workflows: #WorkflowFiles & [
 				"runs-on": "ubuntu-latest"
 				steps: [
 					{
-						name: "Checkout"
 						uses: "actions/checkout@v2"
 					},
 					{
-						name: "setup cue"
 						uses: "cue-lang/setup-cue@main"
-						with: version: "0.4.3"
 					},
 					{
 						run: "cue version"
