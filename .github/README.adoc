@@ -16,6 +16,7 @@ these are located in the `*_tool.cue` file(s) in this directory.
 === `cue cmd generate`
 
 - generates a `docker-bake.json` file in the current directory.
+- generates corresponding `.github` workflow(s).
 
 === `cue cmd validate`
 
@@ -24,7 +25,7 @@ these are located in the `*_tool.cue` file(s) in this directory.
 
 === `cue cmd build`
 
-1. runs `cue cmd validate` (_which then runs `cue cmd generate`_).
+1. runs `cue cmd validate`.
 2. builds the default "target" of the generated `docker-bake.json` file by running (essentially) `docker buildx bake`.
 
 == see also
