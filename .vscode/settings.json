@@ -1,9 +1,36 @@
 {
   "go.toolsManagement.checkForUpdates": "local",
   "go.useLanguageServer": true,
+  "cue.lintOnSave": "file",
+  "cue.moduleRoot": "${workspaceFolder}",
   "cue.lintFlags": [
     "-c"
   ],
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "[json]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.fixAll": true
+    }
+  },
+  "[jsonc]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.fixAll": true
+    }
+  },
+  "[cue]": {
+    "editor.autoSurround": "quotes",
+    "editor.guides.indentation": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.cue": true,
+      "source.organizeImports": true,
+      "source.fixAll": true
+    }
+  },
   "files.watcherExclude": {
     "**/target/**": true
   }

@@ -1,51 +1,45 @@
 package bbq
 
+import (
+	"json.schemastore.org/github"
+)
+
 registry:       "ghcr.io"
 project_name:   "bbq"
 repository:     "github.com/\(owner)/\(project_name)"
 repository_url: "https://\(repository)"
 owner:          "jakelogemann"
 
-files: {
-	"docker-bake.json": #BakeConfig & {
-		group: {
-			default: {
-				targets: [
-					"default",
-				]
-			}
-		}
+files: "docker-bake.json": #BakeConfig & {
+	group: default: targets: [
+		"default",
+	]
 
-		target: {
-			alpine: {
-				context:             "."
-				dockerfile:          "Dockerfile"
-				"dockerfile-inline": "FROM alpine\n"
-				labels: {
-					"org.containers.image.source": repository_url
-				}
-				tags: [
-					"\(registry)/\(owner)/alpine:latest",
-				]
-				platforms: [
-					"linux/amd64",
-					"linux/arm64",
-				]
-			}
-			default: {
-				context:             "."
-				dockerfile:          "Dockerfile"
-				"dockerfile-inline": "FROM scratch\n"
-				tags: [
-					"\(registry)/\(owner)/default:latest",
-				]
-				labels: {
-					"org.containers.image.source": repository_url
-				}
-				platforms: [
-					"linux/amd64",
-				]
-			}
+	target: {
+		alpine: {
+			context:             "."
+			dockerfile:          "Dockerfile"
+			"dockerfile-inline": "FROM alpine\n"
+			labels: "org.containers.image.source": repository_url
+			tags: [
+				"\(registry)/\(owner)/alpine:latest",
+			]
+			platforms: [
+				"linux/amd64",
+				"linux/arm64",
+			]
+		}
+		default: {
+			context:             "."
+			dockerfile:          "Dockerfile"
+			"dockerfile-inline": "FROM scratch\n"
+			tags: [
+				"\(registry)/\(owner)/default:latest",
+			]
+			labels: "org.containers.image.source": repository_url
+			platforms: [
+				"linux/amd64",
+			]
 		}
 	}
 }
@@ -65,11 +59,12 @@ files: {
 	...
 }
 
-#BakeGroup: {
-	targets: [#target]
-}
+#BakeGroup: targets: [#target]
 
 #BakeConfig: {
 	group: [string]:  #BakeGroup
 	target: [string]: #BakeTarget
 }
+
+#WorkflowFile: {filename: string, workflow: github.#Workflow}
+#WorkflowFiles: [...#WorkflowFile]
