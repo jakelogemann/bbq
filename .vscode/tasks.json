@@ -2,13 +2,24 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "regenerate docker-bake.json",
+      "label": "cue eval",
       "type": "shell",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "command": "cue cmd generate"
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "group": "build",
+        "close": true,
+        "revealProblems": "onProblem",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "command": "cue eval -a -c -s"
     },
     {
       "label": "build default target image",

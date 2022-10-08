@@ -15,8 +15,9 @@
 			},
 			"extensions": [
 				"GitHub.vscode-pull-request-github",
-				"brody715.vscode-cuelang",
-				"asciidoctor.asciidoctor-vscode"
+				"cuelang.cue",
+				"asciidoctor.asciidoctor-vscode",
+				"Dagger.dagger"
 			]
 		}
 	},
