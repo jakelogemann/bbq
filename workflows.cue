@@ -31,7 +31,7 @@ workflows: #WorkflowFiles & [
 					},
 					{
 						name: "setup cue"
-						uses: "cue-lang/setup-cue@v1"
+						uses: "cue-lang/setup-cue@main"
 						with: version: "0.4.3"
 					},
 					{
