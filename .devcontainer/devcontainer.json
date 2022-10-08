@@ -1,10 +1,13 @@
 {
-	"name": "${localWorkspaceFolderBasename}",
-	"image": "mcr.microsoft.com/vscode/devcontainers/go:1-bullseye",
+	"name": "bbq",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:1": {
 			"version": "latest"
 		}
+	},
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "."
 	},
 	"customizations": {
 		"vscode": {
@@ -20,6 +23,5 @@
 				"Dagger.dagger"
 			]
 		}
-	},
-	"postStartCommand": "go install cuelang.org/go/cmd/cue@latest"
+	}
 }
