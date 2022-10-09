@@ -28,7 +28,7 @@ docker_bake_config: #BakeConfig & {
 				labels: "org.containers.image.source": repository_url
 				labels: "org.containers.image.title":  target
 				tags: [ "\(_imageName):latest"]
-				platforms: ["linux/amd64", "linux/arm64"]
+				platforms: ["linux/amd64"]
 			}
 		}
 	}
