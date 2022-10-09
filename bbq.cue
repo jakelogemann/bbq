@@ -2,6 +2,7 @@ package bbq
 
 import (
 	"json.schemastore.org/github"
+	"path"
 )
 
 registry:       "ghcr.io"
@@ -9,61 +10,93 @@ project_name:   "bbq"
 repository:     "github.com/\(owner)/\(project_name)"
 repository_url: "https://\(repository)"
 owner:          "jakelogemann"
+imageNames: ["default", "ubuntu"]
 
-files: "docker-bake.json": #BakeConfig & {
-	group: default: targets: [
-		"default",
-	]
-
-	target: {
-		alpine: {
-			context:             "."
-			dockerfile:          "Dockerfile"
-			"dockerfile-inline": "FROM alpine\n"
-			labels: "org.containers.image.source": repository_url
-			tags: [
-				"\(registry)/\(owner)/alpine:latest",
-			]
-			platforms: [
-				"linux/amd64",
-				"linux/arm64",
-			]
+docker_bake_config: #BakeConfig & {
+	group: {
+		// all: targets: imageNames
+		for _, target in imageNames {
+			"\(target)": #BakeGroup & {targets: [target]}
 		}
-		default: {
-			context:             "."
-			dockerfile:          "Dockerfile"
-			"dockerfile-inline": "FROM scratch\n"
-			tags: [
-				"\(registry)/\(owner)/default:latest",
-			]
-			labels: "org.containers.image.source": repository_url
-			platforms: [
-				"linux/amd64",
-			]
+	}
+	target: {
+		for _, target in imageNames {
+			"\(target)": #BakeTarget & {
+				_imageName: path.Join([registry, repository, project_name, target], "unix")
+				context:    "./images/\(target)"
+				dockerfile: "Dockerfile"
+				labels: "org.containers.image.source": repository_url
+				labels: "org.containers.image.title":  target
+				tags: [ "\(_imageName):latest"]
+				platforms: ["linux/amd64", "linux/arm64"]
+			}
 		}
 	}
 }
 
-#semver:   string & =~"^v[0-9]+\\.[0-9]+\\.[0-9]+$"
-#label:    string & =~"^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
-#target:   string & =~"^[a-z0-9]+$"
-#platform: string & =~"^(linux|darwin|windows)/(arm64|amd64|i386|arm)$"
+github_workflows: {
+	for _, target in imageNames {
+		"\(target)": {
+			github.#Workflow & {
+				name: "\(target)"
+				on: {
+					pull_request: types: [
+						"opened",
+						"synchronize",
+					]
+					push: branches: [
+						"main",
+					]
+				}
 
+				jobs: build: {
+					"runs-on": "ubuntu-latest"
+					steps: [
+						{
+							uses: "actions/checkout@v3.1.0"
+						},
+						{
+							uses: "cue-lang/setup-cue@main"
+						},
+						{
+							run: "cue version"
+						},
+						{
+							run: "cue cmd generate"
+						},
+						{
+							run: "cue cmd build"
+						},
+						{
+							name:                "error if uncommitted changes"
+							run:                 "test -z \"$(git status --porcelain)\" || (git status; git diff; false)"
+							"continue-on-error": true
+						},
+					]
+				}
+			}
+		}
+	}
+}
+
+#SemVer:         string & =~"^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+#Label:          string & =~"^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+#BakeTargetName: string & =~"^[a-z0-9]+$"
+#Platform:       string & =~"^(linux|darwin|windows)/(arm64|amd64|i386|arm)$"
+#BakeGroup: targets: [#BakeTargetName]
 #BakeTarget: {
 	context: *"." | string & !=""
 	tags: [...string]
-	platforms: [...#platform]
-	labels: [#label]: string
+	platforms: [...#Platform]
+	labels: [#Label]: string
 	"dockerfile-inline"?: string
 	dockerfile?:          string
 	...
 }
 
-#BakeGroup: targets: [#target]
-
 #BakeConfig: {
-	group: [string]:  #BakeGroup
-	target: [string]: #BakeTarget
+	group: [string]:           #BakeGroup
+	target: [#BakeTargetName]: #BakeTarget
 }
 
 #WorkflowFile: {filename: string, workflow: github.#Workflow}
