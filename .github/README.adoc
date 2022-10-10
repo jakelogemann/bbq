@@ -28,6 +28,10 @@ these are located in the `*_tool.cue` file(s) in this directory.
 1. runs `cue cmd validate`.
 2. builds the default "target" of the generated `docker-bake.json` file by running (essentially) `docker buildx bake`.
 
+=== `cue cmd list`
+
+- list all currently available commands.
+
 == see also
 
 * link:https://pkg.go.dev/cuelang.org/go/pkg@v0.4.3[CUE's standard library]

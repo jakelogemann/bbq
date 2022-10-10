@@ -1,7 +1,7 @@
 package bbq
 
 import (
-	"json.schemastore.org/github"
+	"polis.dev/v0"
 	"path"
 )
 
@@ -12,16 +12,16 @@ repository_url: "https://\(repository)"
 owner:          "jakelogemann"
 imageNames: ["default", "ubuntu"]
 
-docker_bake_config: #BakeConfig & {
+docker_bake_config: v0.#BakeConfig & {
 	group: {
 		// all: targets: imageNames
 		for _, target in imageNames {
-			"\(target)": #BakeGroup & {targets: [target]}
+			"\(target)": v0.#BakeGroup & {targets: [target]}
 		}
 	}
 	target: {
 		for _, target in imageNames {
-			"\(target)": #BakeTarget & {
+			"\(target)": v0.#BakeTarget & {
 				_imageName: path.Join([registry, repository, project_name, target], "unix")
 				context:    "./images/\(target)"
 				dockerfile: "Dockerfile"
@@ -37,7 +37,7 @@ docker_bake_config: #BakeConfig & {
 github_workflows: {
 	for _, target in imageNames {
 		"\(target)": {
-			github.#Workflow & {
+			v0.#Workflow & {
 				name: "\(target)"
 				on: {
 					pull_request: types: [
@@ -78,26 +78,3 @@ github_workflows: {
 		}
 	}
 }
-
-#SemVer:         string & =~"^v[0-9]+\\.[0-9]+\\.[0-9]+$"
-#Label:          string & =~"^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
-#BakeTargetName: string & =~"^[a-z0-9]+$"
-#Platform:       string & =~"^(linux|darwin|windows)/(arm64|amd64|i386|arm)$"
-#BakeGroup: targets: [#BakeTargetName]
-#BakeTarget: {
-	context: *"." | string & !=""
-	tags: [...string]
-	platforms: [...#Platform]
-	labels: [#Label]: string
-	"dockerfile-inline"?: string
-	dockerfile?:          string
-	...
-}
-
-#BakeConfig: {
-	group: [string]:           #BakeGroup
-	target: [#BakeTargetName]: #BakeTarget
-}
-
-#WorkflowFile: {filename: string, workflow: github.#Workflow}
-#WorkflowFiles: [...#WorkflowFile]
